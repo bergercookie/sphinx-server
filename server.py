@@ -51,7 +51,7 @@ def pushd(new_dir):
     os.chdir(previous_dir)
 
 
-if __name__ == '__main__':
+def main():
 
     key = ''
     config_file = '.sphinx-server.yml'
@@ -69,6 +69,16 @@ if __name__ == '__main__':
 
     if not os.path.exists(build_folder):
         os.makedirs(build_folder)
+
+    # build only once, then exit.
+    if "BUILD_ONCE" in os.environ:
+        builder = sphinx_autobuild.SphinxBuilder(
+            outdir=build_folder,
+            args=['-b', 'html', source_folder, build_folder]+sys.argv[1:],
+            ignored=[]
+        )
+        builder.build()
+        return 0
 
     if configuration.get('autobuild'):
 
@@ -107,3 +117,8 @@ if __name__ == '__main__':
                 Handler = http.server.SimpleHTTPRequestHandler
                 httpd = socketserver.TCPServer(('', 8000), Handler)
                 httpd.serve_forever()
+
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main())
