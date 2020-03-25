@@ -31,6 +31,8 @@ USER $USR
 ENV HOME $HOME
 WORKDIR $HOME
 
+RUN sudo chown -R $USR:$USR /opt/sphinx-server
+
 EXPOSE 8000 35729
 
 CMD ["python", "/opt/sphinx-server/server.py"]
