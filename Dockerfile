@@ -16,6 +16,12 @@ RUN wget http://downloads.sourceforge.net/project/plantuml/plantuml.jar -P /opt/
 COPY ./server.py /opt/sphinx-server/
 COPY ./.sphinx-server.yml /opt/sphinx-server/
 
+# install spellchecking tools
+RUN apk add --update enchant-dev aspell-en
+
+# cpython is broken on alpine - find the library manually - https://github.com/docker-library/python/issues/111
+ENV PYENCHANT_LIBRARY_PATH "/usr/lib/libenchant.so"
+
 # run as a normal user ------------------------------------------------------------------------
 ARG USR=developer
 ARG UID=1000
