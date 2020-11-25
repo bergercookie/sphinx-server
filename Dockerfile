@@ -6,7 +6,7 @@ MAINTAINER Quentin de Longraye <quentin@dldl.fr>
 COPY ./requirements.txt requirements.txt
 
 RUN apk add --no-cache --virtual --update \
-    py3-pip make wget ca-certificates ttf-dejavu openjdk8-jre graphviz sudo \
+    py3-pip make wget ca-certificates ttf-dejavu openjdk8-jre graphviz git sudo \
     # packages to assist debugging
     bash vim \
     # pip packages
